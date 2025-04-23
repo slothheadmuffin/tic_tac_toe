@@ -12,7 +12,7 @@ class Board
   end
 
   def show_board
-    puts @grid
+    @grid.each_slice(3){ |row| puts row.join(' ')}
   end
 
   def valid_move
