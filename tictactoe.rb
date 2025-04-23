@@ -2,12 +2,12 @@ class Player
   def initialize(player,marker)
     @player=player
     @marker=marker
+    @current_player=0
   end
 end
 
 class Board
   def initialize
-    #grid
     @grid=(1..9).to_a
   end
 
@@ -22,6 +22,7 @@ class Board
   end
 
   def wins
+
   end
 
 end
@@ -32,6 +33,11 @@ class Game
   end
 
   def obtain_players
+    puts "Tic Tac Toe"
+    puts "\n Player 1, type you name"
+    player1=Player.new
+    player1.player= gets
+    #not finished
   end
 
   def start_game
@@ -45,6 +51,7 @@ class Game
   end
 
   def end_stats
+    @board.show_board
   end
 
 end
