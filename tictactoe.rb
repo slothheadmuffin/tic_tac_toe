@@ -73,15 +73,21 @@ class Game
   end
 
   def start_game
-    obtain_players
-    @board.reset_board
     loop do
-      place_marker
-      if end_game
-        stats_end
-        break 
+      
+      obtain_players
+      @board.reset_board
+      loop do
+        place_marker
+        if end_game
+          stats_end
+          break 
+        end
+        change_turn
       end
-      change_turn
+      puts "Wanna play again? Y/N"
+      response=gets.chomp.upcase
+      break unless response =="Y"
     end
   end
   
