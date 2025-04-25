@@ -33,12 +33,15 @@ class Board
     @grid.all?{|position| position.is_a?(String)}
   end
   
-  def wins?
+  def wins?(marker)
     combinations=[
-      [1,2,3],[4,5,6],[7,8,9], #row
-      [1,4,7],[2,5,8],[3,6,9], #column
-      [1,5,9],[3,5,7] #diagonal
+      [0,1,2],[3,4,5],[6,7,8], #row
+      [0,3,6],[1,4,7],[2,5,8], #column
+      [0,4,8],[2,4,6] #diagonal
     ]
+    combinations.any? do |winning|
+      winning.all?{|combo|@grid[combo]==marker} 
+    end
   end
   
 end
@@ -71,6 +74,7 @@ class Game
 
   def start_game
     obtain_players
+    @board.reset_board
     loop do
       place_marker
       if end_game
@@ -105,11 +109,13 @@ class Game
   end
 
   def end_game
-    @board.full_board?
+    @board.full_board?||@board.wins?(@current_player.marker)
   end
 
   def stats_end
-    if @board.full_board?
+    if @board.wins?(@current_player.marker)
+      puts "\n#{@current_player} wins"
+    else
       puts "It's a tie"
     end
     @board.show_board
